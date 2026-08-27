@@ -1,109 +1,33 @@
-/* =========================================
-   MOBILE MENU
-========================================= */
+const menuButton = document.querySelector(".menu-toggle");
+const nav = document.querySelector(".nav");
 
-const menuToggle = document.getElementById("menuToggle");
-const navLinks = document.getElementById("navLinks");
+if (menuButton && nav) {
 
-if (menuToggle && navLinks) {
+    menuButton.addEventListener("click", () => {
 
-    menuToggle.addEventListener("click", function () {
+        const isOpen = nav.classList.toggle("open");
 
-        navLinks.classList.toggle("active");
+        menuButton.setAttribute(
+            "aria-expanded",
+            isOpen ? "true" : "false"
+        );
 
     });
 
 
-    /* Close menu after clicking a navigation link */
+    nav.querySelectorAll("a").forEach(link => {
 
-    const links = navLinks.querySelectorAll("a");
+        link.addEventListener("click", () => {
 
-    links.forEach(function (link) {
+            nav.classList.remove("open");
 
-        link.addEventListener("click", function () {
-
-            navLinks.classList.remove("active");
+            menuButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
 
         });
 
     });
 
 }
-
-
-/* =========================================
-   SMOOTH SCROLLING
-========================================= */
-
-const navigationLinks = document.querySelectorAll('a[href^="#"]');
-
-navigationLinks.forEach(function (link) {
-
-    link.addEventListener("click", function (event) {
-
-        const targetId = this.getAttribute("href");
-
-        if (targetId === "#") {
-            return;
-        }
-
-        const target = document.querySelector(targetId);
-
-        if (target) {
-
-            event.preventDefault();
-
-            target.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-        }
-
-    });
-
-});
-
-
-/* =========================================
-   FAQ
-========================================= */
-
-const faqItems = document.querySelectorAll(".faq-container details");
-
-faqItems.forEach(function (item) {
-
-    item.addEventListener("toggle", function () {
-
-        if (item.open) {
-
-            faqItems.forEach(function (otherItem) {
-
-                if (otherItem !== item) {
-                    otherItem.removeAttribute("open");
-                }
-
-            });
-
-        }
-
-    });
-
-});
-
-
-/* =========================================
-   IMAGE FALLBACK
-========================================= */
-
-const profileImages = document.querySelectorAll("img[src='hema.jpg']");
-
-profileImages.forEach(function (image) {
-
-    image.addEventListener("error", function () {
-
-        image.style.display = "none";
-
-    });
-
-});
